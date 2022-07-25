@@ -5,8 +5,8 @@ services:
     image: nginx:1.7.7
     container_name: nginx
     restart: always
-    networks:
-      - frontend
+    # networks:
+    #   - frontend
     ports:
       - 8080:80
       - 8443:443
@@ -17,17 +17,18 @@ services:
       - ${NGINX_SSL_KEY:-./ssl/ssl_dev.key}:/etc/ssl/SSL.key:ro   # SSL development key
 
   viewer:
-    image: ohif/viewer:v1.x
+    # image: ohif/viewer:v1.x
+    image: ohif/viewer:latest
     container_name: viewer
     depends_on:
       - mongo
       - orthanc
     restart: always
-    networks:
-      - frontend
-      - backend
-#    ports:
-#      - 3000:3000
+    # networks:
+    #   - frontend
+    #   - backend
+    ports:
+      - 3000:80
     links:
       - mongo
     environment:
@@ -38,29 +39,30 @@ services:
   mongo:
     image: mongo:4.0.14
     container_name: mongo
-    networks:
-      - backend
+    # networks:
+    #   - backend
 #    ports:
 #      - ${MONGO_PORT:-27017}:27017
     volumes:
       - ${MONGO_DATA:-./mongo_data}:/data/db
 
   orthanc:
-    image: jodogne/orthanc-plugins:1.5.8
+    image: jodogne/orthanc-plugins:1.11.0
     container_name: orthanc
     depends_on:
       - postgres
     restart: always
-    networks:
-      - frontend
-      - backend
-#    ports:
-#      - ${ORTHANC_DICOM_PORT:-4242}:4242
-#      - ${ORTHANC_HTTP_PORT:-8042}:8042
+    # networks:
+    #   - frontend
+      # - backend
+    ports:
+      - ${ORTHANC_DICOM_PORT:-4242}:4242
+      - ${ORTHANC_HTTP_PORT:-8042}:8042
     volumes:
       - sampledata:/sampledata
       - ${ORTHANC_DB:-./orthanc_db}:/var/lib/orthanc/db
       - ${ORTHANC_CONFIG:-./config/orthanc.json}:/etc/orthanc/orthanc.json:ro
+      - ./worklistdb:/var/lib/orthanc/worklists
     environment:
       - POSTGRES_PORT=${POSTGRES_PORT:-5432}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
@@ -71,8 +73,8 @@ services:
   postgres:
     image: postgres:12.1
     container_name: postgres
-    networks:
-      - backend
+    # networks:
+    #   - backend
 #    ports:
 #      - ${POSTGRES_PORT:-5432}:5432
     volumes:
@@ -83,9 +85,9 @@ services:
       - PGDATA=${PGDATA:-/var/lib/postgresql/data}
       - POSTGRES_DB=orthanc
 
-networks:
-  frontend:
-  backend:
+# networks:
+#   frontend:
+#   backend:
 
 volumes:
   sampledata:
