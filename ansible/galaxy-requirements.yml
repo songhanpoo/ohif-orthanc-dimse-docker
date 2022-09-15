@@ -4,8 +4,8 @@
 
 - src: https://github.com/ansible-collections/community.general
   version: 5.6.0
-  name: community.docker
+  name: community.general
 
 - src: https://github.com/ansible-collections/community.postgresql
   version: 2.2.0
-  name: community.docker
+  name: community.postgresql

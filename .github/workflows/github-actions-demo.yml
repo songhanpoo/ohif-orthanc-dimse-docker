@@ -1,7 +1,7 @@
 name: GitHub Actions Demo
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Ansible-Deploy:
     runs-on: self-hosted
     steps:
     # Print metadata informations
