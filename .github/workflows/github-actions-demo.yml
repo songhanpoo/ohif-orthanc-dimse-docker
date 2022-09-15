@@ -27,9 +27,9 @@ jobs:
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
-          # inventory: |
-          #   [all]
-          #   example.com
+          inventory: |
+            [all]
+            localhost ansible_connection=local
 
           #   [group1]
           #   example.com

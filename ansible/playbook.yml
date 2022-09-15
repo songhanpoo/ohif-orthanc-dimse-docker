@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: all
   become: true
   tasks:
   - name: Print the gateway for each host when defined
