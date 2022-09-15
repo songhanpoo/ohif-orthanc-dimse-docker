@@ -40,8 +40,8 @@ jobs:
           # Optional, galaxy requirements filepath
           requirements: galaxy-requirements.yml
           # Optional, additional flags to pass to ansible-playbook
-          options: |
-            # --inventory .hosts
-            # --limit group1
-            # --extra-vars hello=there
-            -vv
+          # options: |
+          #   # --inventory .hosts
+          #   # --limit group1
+          #   # --extra-vars hello=there
+          #   -vv
