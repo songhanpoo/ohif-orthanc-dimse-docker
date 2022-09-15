@@ -1,0 +1,11 @@
+- src: https://github.com/ansible-collections/community.docker
+  version: 3.1.0 
+  name: community.docker
+
+- src: https://github.com/ansible-collections/community.general
+  version: 5.6.0
+  name: community.docker
+
+- src: https://github.com/ansible-collections/community.postgresql
+  version: 2.2.0
+  name: community.docker

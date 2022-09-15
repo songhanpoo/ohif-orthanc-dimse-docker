@@ -149,7 +149,7 @@
   // Set the timeout (in seconds) after which the DICOM associations
   // are closed by the Orthanc SCP (server) if no further DIMSE
   // command is received from the SCU (client).
-  "DicomScpTimeout" : 30,
+  "DicomScpTimeout" : 1000,
 
 
 
@@ -260,7 +260,7 @@
   // The timeout (in seconds) after which the DICOM associations are
   // considered as closed by the Orthanc SCU (client) if the remote
   // DICOM SCP (server) does not answer.
-  "DicomScuTimeout" : 10,
+  "DicomScuTimeout" : 1000,
 
   // The list of the known Orthanc peers
   "OrthancPeers" : {
