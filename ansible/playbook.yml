@@ -1,0 +1,5 @@
+- hosts: all
+  tasks:
+  - name: Print the gateway for each host when defined
+    debug:
+      msg: System {{ inventory_hostname }} has gateway {{ ansible_enp0s8.ipv4.address }}
