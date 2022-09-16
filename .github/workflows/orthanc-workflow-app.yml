@@ -61,12 +61,7 @@ jobs:
     if: ${{ always() }}
     needs: checking
     steps:
-      - run: echo "🎉 The job complted checking"
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: export
+      - run: echo "🎉 The job completed checking"
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:

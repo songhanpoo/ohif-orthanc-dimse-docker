@@ -96,8 +96,9 @@
       ssl_mode: disable
 
 ###
-  - docker_compose:
-      when: pgResult.is_available == yes
+  - name: Docker compose bundle of orthanc application
+    when: pgResult.is_available == yes
+    docker_compose:
       project_name: orthanc
       definition:
         web:
