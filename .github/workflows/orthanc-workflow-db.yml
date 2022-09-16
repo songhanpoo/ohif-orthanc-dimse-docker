@@ -26,7 +26,7 @@ jobs:
           # Required, playbook filepath
           playbook: checking.yml
           # Optional, directory where playbooks live
-          directory: ./ansible/orthanc-app
+          directory: ./ansible/orthanc-db
           # Optional, SSH private key
           key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY_}}
           # Optional, literal inventory file contents
@@ -60,9 +60,9 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
-          playbook: orthanc-app.yml
+          playbook: orthanc-db.yml
           # Optional, directory where playbooks live
-          directory: ./ansible/orthanc-app
+          directory: ./ansible/orthanc-db
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
