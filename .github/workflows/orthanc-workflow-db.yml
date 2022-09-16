@@ -70,7 +70,8 @@ jobs:
             [all]
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
           options: |
-            -e cidr_allow_postgresql=172.16.16.0/24
+            -e "cidr_allow_postgresql=172.16.16.0/24"
+            
           #   example.com
           # Optional, SSH known hosts file content
           # known_hosts: .known_hosts
