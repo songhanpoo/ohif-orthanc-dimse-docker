@@ -41,7 +41,7 @@ jobs:
           # Optional, literal inventory file contents
           inventory: |
             [all]
-            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
+            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=ssh
           options: |
             -e cidr_allow_postgresql=${{env.CIDR_ALLOW_POSTGRESQL}}
             -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
@@ -67,7 +67,7 @@ jobs:
           # Optional, literal inventory file contents
           inventory: |
             [all]
-            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
+            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=ssh
           options: |
             -e cidr_allow_postgresql=${{env.CIDR_ALLOW_POSTGRESQL}}
             -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
