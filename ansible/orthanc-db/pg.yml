@@ -1,0 +1,95 @@
+- hosts: all
+  tasks:
+  - name: Print the gateway for each host when defined
+    debug:
+      msg: System {{ inventory_hostname }} has gateway {{ ansible_enp0s8.ipv4.address }}
+
+  - name: Run the equivalent of "apt-get update" as a separate step
+    apt:
+      update_cache: yes
+
+  - name: Install packages to allow apt to debug and trouble shoot
+    apt:
+      state: present
+      pkg:
+      - vim
+      - curl
+      - net-tools
+      - python3-pip
+      - python-selinux
+      - build-essential
+      - libpq-dev
+      - python-dev
+
+  - name: Install psycopg2 and docker, using the 'pip3' executable
+    pip:
+      name: 
+        - psycopg2
+      executable: pip3
+
+  # - name: Disable SELinux
+  #   selinux: state=disabled
+
+  - name: Install packages to allow apt to debug and trouble shoot
+    apt:
+      state: present
+      pkg:
+      - postgresql
+      - postgresql-contrib
+
+  - name: Enable service postgresql, and not touch the state
+    service:
+      name: postgresql
+      enabled: yes
+
+  - name: Start service postgresql, if not started
+    service:
+      name: postgresql
+      state: started
+
+  - debug:
+      var: hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
+  - name: Template a file to /etc/postgresql/10/main/pg_hba.conf
+    template:
+      src: ./templates/pg_hba.conf.j2
+      dest: /etc/postgresql/10/main/pg_hba.conf
+      owner: postgres
+      group: postgres
+      mode: '0640'
+
+  - name: Template a file to /etc/postgresql/10/main/postgresql.conf
+    template:
+      src: ./templates/postgresql.conf.j2
+      dest: /etc/postgresql/10/main/postgresql.conf
+      owner: postgres
+      group: postgres
+      mode: '0640'
+
+  - name: Reload service postgresql
+    service:
+      name: postgresql
+      state: reloaded
+
+  - name: Create a new database with name "acme"
+    become: true
+    become_user: 'postgres'
+    postgresql_db:
+      name: orthanc
+
+  - name: Connect to acme database, create django user, and grant access to database and products table
+    become: true
+    become_user: 'postgres'
+    postgresql_user:
+      db: orthanc
+      name: orthanc
+      password: ceec4eif7ya
+      priv: ALL
+      expires: infinity
+
+  - ufw:
+      rule: allow
+      port: '5432'
+      proto: tcp
+      # src: 
+      #   - '192.168.56.11'

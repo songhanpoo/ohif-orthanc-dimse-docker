@@ -1,0 +1,86 @@
+name: GitHub Actions Demo
+on:
+  push:
+    branches:
+      - orthanc-db
+jobs:
+  checking:
+    runs-on: self-hosted
+    steps:
+    # Print metadata informations
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: export
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: checking.yml
+          # Optional, directory where playbooks live
+          directory: ./ansible/orthanc-app
+          # Optional, SSH private key
+          key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY_}}
+          # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
+          # Optional, SSH known hosts file content
+          # known_hosts: .known_hosts
+          # Optional, encrypted vault password
+          # vault_password: ${{secrets.VAULT_PASSWORD}}
+          # Optional, galaxy requirements filepath
+          # requirements: galaxy-requirements.yml
+          # Optional, additional flags to pass to ansible-playbook
+          # options: |
+          #   # --inventory .hosts
+          #   # --limit group1
+          #   # --extra-vars hello=there
+          #   -vv
+  deploy:
+    runs-on: self-hosted
+    if: ${{ always() }}
+    needs: checking
+    steps:
+      - run: echo "🎉 The job complted checking"
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: export
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: orthanc-app.yml
+          # Optional, directory where playbooks live
+          directory: ./ansible/orthanc-app
+          # Optional, SSH private key
+          # key: ${{secrets.SSH_PRIVATE_KEY}}
+          # Optional, literal inventory file contents
+          # inventory: |
+          #   [all]
+          #   localhost ansible_connection=local
+
+          #   [group1]
+          #   example.com
+          # Optional, SSH known hosts file content
+          # known_hosts: .known_hosts
+          # Optional, encrypted vault password
+          # vault_password: ${{secrets.VAULT_PASSWORD}}
+          # Optional, galaxy requirements filepath
+          # requirements: galaxy-requirements.yml
+          # Optional, additional flags to pass to ansible-playbook
+          # options: |
+          #   # --inventory .hosts
+          #   # --limit group1
+          #   # --extra-vars hello=there
+          #   -vv

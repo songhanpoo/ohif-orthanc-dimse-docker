@@ -6,79 +6,79 @@
     apt:
       update_cache: yes
 
-  # - name: Install packages to allow apt to debug and trouble shoot
-  #   apt:
-  #     state: present
-  #     pkg:
-  #     - vim
-  #     - curl
-  #     - net-tools
-  #     - python3-pip
-  #     - libpq-dev
-  #     - python-dev
-  #     - build-essential
+  - name: Install packages to allow apt to debug and trouble shoot
+    apt:
+      state: present
+      pkg:
+      - vim
+      - curl
+      - net-tools
+      - python3-pip
+      - libpq-dev
+      - python-dev
+      - build-essential
 
-  # - name: Install docker-compose and docker, using the 'pip3' executable
-  #   pip:
-  #     name: 
-  #       - docker-compose
-  #       - docker
-  #       - psycopg2
-  #     executable: pip3
+  - name: Install docker-compose and docker, using the 'pip3' executable
+    pip:
+      name: 
+        - docker-compose
+        - docker
+        - psycopg2
+      executable: pip3
 
-  # - name: Install packages to allow apt to use a repository over HTTPS
-  #   apt:
-  #     state: present
-  #     pkg:
-  #     - ca-certificates
-  #     - gnupg
-  #     - curl
-  #     - gnupg
-  #     - lsb-release
+  - name: Install packages to allow apt to use a repository over HTTPS
+    apt:
+      state: present
+      pkg:
+      - ca-certificates
+      - gnupg
+      - curl
+      - gnupg
+      - lsb-release
 
-  # - name: Create a directory if it does not exist
-  #   file:
-  #     path: /etc/apt/keyrings
-  #     state: directory
-  #     mode: '0755'
+  - name: Create a directory if it does not exist
+    file:
+      path: /etc/apt/keyrings
+      state: directory
+      mode: '0755'
 
-  # - name: "Check if path exists"
-  #   stat:
-  #     path: "/etc/apt/keyrings/docker.gpg"
-  #   register: result
+  - name: "Check if path exists"
+    stat:
+      path: "/etc/apt/keyrings/docker.gpg"
+    register: result
 
-  # - name: Add Docker's official GPG key
-  #   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  #   when: not result.stat.exists
+  - name: Add Docker's official GPG key
+    shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    when: not result.stat.exists
 
-  # - name: Make sure universe repository is enabled
-  #   apt_repository:
-  #     repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu bionic stable
-  #     state: present
-  #     update_cache: 'True'
+  - name: Make sure universe repository is enabled
+    apt_repository:
+      repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+      update_cache: 'True'
 
-  # - name: Run the equivalent of "apt-get update" after update repository
-  #   apt:
-  #     update_cache: yes
+  - name: Run the equivalent of "apt-get update" after update repository
+    apt:
+      update_cache: yes
 
-  # - name: Install packages to allow apt to use a repository over HTTPS
-  #   apt:
-  #     state: present
-  #     pkg:
-  #     - docker-ce
-  #     - docker-ce-cli
-  #     - containerd.io
-  #     - docker-compose-plugin
+  - name: Install packages to allow apt to use a repository over HTTPS
+    apt:
+      state: present
+      pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
 
-  # - name: Enable service docker, and not touch the state
-  #   service:
-  #     name: docker
-  #     enabled: yes
+  - name: Enable service docker, and not touch the state
+    service:
+      name: docker
+      enabled: yes
 
-  # - name: Start service docker, if not started
-  #   service:
-  #     name: docker
-  #     state: started
+  - name: Start service docker, if not started
+    service:
+      name: docker
+      state: started
 
   # - name: >
   #     Ping PostgreSQL server using non-default credentials and SSL
