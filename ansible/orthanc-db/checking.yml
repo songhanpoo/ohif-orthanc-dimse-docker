@@ -1,6 +1,6 @@
 - hosts: all
   vars:
-    - cidr_allow_postgresql: ''
+    # - cidr_allow_postgresql: ''
     - orthanc: {}
         # pg_db_name: orthanc
         # pg_user_name: orthanc
@@ -13,7 +13,7 @@
       msg: 
       - ===============================================================
       - Ansible controller is {{ inventory_hostname }}
-      - The deployment is running on ansible_host.split('=')[1]
+      - The deployment is running on {{ansible_host.split('=')[1]}}
       - The configuration orthanc 
       - "[PGSQL] CIDR allow {{ cidr_allow_postgresql }}"
       # - "[PGSQL] database name is {{ orthanc.pg_db_name}}"
