@@ -56,6 +56,8 @@ jobs:
           playbook: orthanc-db.yml
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-db
+          # Optional, galaxy requirements filepath
+          requirements: galaxy-requirements.yml
           # Optional, SSH private key
           key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
