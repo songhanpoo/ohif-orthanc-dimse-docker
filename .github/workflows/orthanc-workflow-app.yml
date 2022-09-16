@@ -10,6 +10,9 @@ env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
   ORTHANC_PGSQL_DB_NAME: orthanc
   ORTHANC_PGSQL_HOST: "172.16.16.17"
+  orthanc:
+    - username: demo
+      password: demo
 
 jobs:
   checking:
@@ -35,6 +38,8 @@ jobs:
           playbook: checking.yml
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-app
+          options: |
+            -e orthanc_lst_user=${{env.orthanc}}
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
@@ -56,21 +61,22 @@ jobs:
           #   # --limit group1
           #   # --extra-vars hello=there
           #   -vv
-  deploy:
-    runs-on: self-hosted
-    if: ${{ always() }}
-    needs: checking
-    steps:
-      - run: echo "🎉 The job completed checking"
-      - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          # Required, playbook filepath
-          playbook: orthanc-app.yml
-          # Optional, directory where playbooks live
-          directory: ./ansible/orthanc-app
-          options: |
-            -e orthanc_pg_db_host=${{env.ORTHANC_PGSQL_HOST}}
-            -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
-            -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
-            -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
+  # deploy:
+  #   runs-on: self-hosted
+  #   if: ${{ always() }}
+  #   needs: checking
+  #   steps:
+  #     - run: echo "🎉 The job completed checking"
+  #     - name: Run playbook
+  #       uses: dawidd6/action-ansible-playbook@v2
+  #       with:
+  #         # Required, playbook filepath
+  #         playbook: orthanc-app.yml
+  #         # Optional, directory where playbooks live
+  #         directory: ./ansible/orthanc-app
+  #         options: |
+  #           -e orthanc_pg_db_host=${{env.ORTHANC_PGSQL_HOST}}
+  #           -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
+  #           -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
+  #           -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
+  #           -e orthanc_lst_user=${{env.orthanc}}

@@ -5,3 +5,8 @@
   - name: Print the gateway for each host when defined
     debug:
       msg: System {{ inventory_hostname }} has gateway {{ ansible_ens18.ipv4.address }}
+
+
+  - name: debug
+    debug:
+      msg: "{{ orthanc_lst_user | to_json }} "
