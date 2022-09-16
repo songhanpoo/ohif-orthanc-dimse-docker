@@ -15,5 +15,5 @@
       - Ansible controller is {{ inventory_hostname }}
       - The deployment is running on ansible_host.split('=')[1]
       - The configuration orthanc 
-      - Postgresql's database name is {{ pg_db_name}}
-      - Postgresql's username is {{ pg_user_name }}
+      - Postgresql's database name is {{ orthanc.pg_db_name}}
+      - Postgresql's username is {{ orthanc.pg_user_name }}
