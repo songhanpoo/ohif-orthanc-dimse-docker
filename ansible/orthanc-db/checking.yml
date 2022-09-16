@@ -8,4 +8,4 @@
 
   - name: DEBUG
     debug:
-      msg: System {{ hostvars[inventory_hostname].ansible_host }}
+      msg: System {{ ansible_host }}
