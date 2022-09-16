@@ -47,7 +47,7 @@ jobs:
           #   -vv
   deploy:
     runs-on: self-hosted
-    if: ${{ always() }}
+    if: ${{ success() }}
     needs: checking
     steps:
       - run: echo "🎉 The job complted checking"
