@@ -14,7 +14,7 @@
       - Ansible controller is {{ inventory_hostname }}
       - The configuration orthanc 
       - "[PGSQL] CIDR allow {{ cidr_allow_postgresql }}"
-      - "[PGSQL] database name is {{ pg_db_name}}"
-      - "[PGSQL] username is {{ pg_username }}"
-      - "[PGSQL] username is {{ pg_passwd }}"
+      - "[PGSQL] database name is {{ orthanc_pg_db_name }}"
+      - "[PGSQL] username is {{ orthanc_pg_username }}"
+      - "[PGSQL] username is {{ orthanc_pg_passwd }}"
 
