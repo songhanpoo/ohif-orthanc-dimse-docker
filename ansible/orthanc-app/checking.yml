@@ -1,5 +1,11 @@
 - hosts: localhost
   become: true
+  vars:
+    orthanc_lst_user:
+      - username: demo
+        password: demo
+      - username: mgmt
+        password: mgmt
   tasks:
 
   - name: Print the gateway for each host when defined

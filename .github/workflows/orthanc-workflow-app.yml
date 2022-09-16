@@ -10,9 +10,6 @@ env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
   ORTHANC_PGSQL_DB_NAME: orthanc
   ORTHANC_PGSQL_HOST: "172.16.16.17"
-  orthanc:
-    - username: demo
-      password: demo
 
 jobs:
   checking:
