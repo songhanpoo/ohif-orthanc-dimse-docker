@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+    paths:
+    - 'ansible/orthanc-app/**'
 jobs:
   checking:
     runs-on: self-hosted

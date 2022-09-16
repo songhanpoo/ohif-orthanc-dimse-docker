@@ -2,7 +2,9 @@ name: Automate deploy to orthanc database
 on:
   push:
     branches:
-      - orthanc-db
+      - master
+    paths:
+    - 'ansible/orthanc-db/**'
 
 env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
