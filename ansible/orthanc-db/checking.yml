@@ -1,7 +1,7 @@
 - hosts: all
-  vars:
+  # vars:
     # - cidr_allow_postgresql: ''
-    - orthanc: {}
+    # - orthanc: {}
         # pg_db_name: orthanc
         # pg_user_name: orthanc
         # pg_user_passwd: ceec4eif7ya

@@ -69,6 +69,8 @@ jobs:
           inventory: |
             [all]
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
+          options: |
+            -e cidr_allow_postgresql=${{secrets.CIDR_ALLOW_POSTGRESQL}}
           #   example.com
           # Optional, SSH known hosts file content
           # known_hosts: .known_hosts
@@ -80,5 +82,3 @@ jobs:
           # --extra-vars orthanc.pg_db_name="orthanc"
           # --extra-vars orthanc.pg_user_name="orthanc"
           # --extra-vars orthanc.pg_user_name="ceec4eif7ya"
-          options: |
-            -e idr_allow_postgresql=172.16.16.0/24
