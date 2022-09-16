@@ -8,4 +8,4 @@
 
   - name: DEBUG
     debug:
-      msg: "{{ ansible_host }}"
+      msg: "{{ ansible_host.split()[1] }}"
