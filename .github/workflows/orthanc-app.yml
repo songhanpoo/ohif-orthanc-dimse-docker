@@ -26,7 +26,7 @@ jobs:
           # Required, playbook filepath
           playbook: checking.yml
           # Optional, directory where playbooks live
-          directory: ./ansible
+          directory: ./ansible/orthanc-app
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
@@ -52,3 +52,5 @@ jobs:
     runs-on: self-hosted
     if: ${{ always() }}
     needs: checking
+    steps:
+      - run: echo "🎉 The job complted checking"
