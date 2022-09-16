@@ -1,7 +1,10 @@
 name: GitHub Actions Demo
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
-  Checking:
+  checking:
     runs-on: self-hosted
     steps:
     # Print metadata informations
@@ -21,7 +24,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
-          playbook: playbook.yml
+          playbook: checking.yml
           # Optional, directory where playbooks live
           directory: ./ansible
           # Optional, SSH private key
@@ -45,3 +48,7 @@ jobs:
           #   # --limit group1
           #   # --extra-vars hello=there
           #   -vv
+  deploy:
+    runs-on: self-hosted
+    if: ${{ always() }}
+    needs: checking

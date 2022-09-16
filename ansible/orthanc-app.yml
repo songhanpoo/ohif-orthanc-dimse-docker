@@ -1,0 +1,155 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Run the equivalent of "apt-get update" as a separate step
+    apt:
+      update_cache: yes
+
+  # - name: Install packages to allow apt to debug and trouble shoot
+  #   apt:
+  #     state: present
+  #     pkg:
+  #     - vim
+  #     - curl
+  #     - net-tools
+  #     - python3-pip
+  #     - libpq-dev
+  #     - python-dev
+  #     - build-essential
+
+  # - name: Install docker-compose and docker, using the 'pip3' executable
+  #   pip:
+  #     name: 
+  #       - docker-compose
+  #       - docker
+  #       - psycopg2
+  #     executable: pip3
+
+  # - name: Install packages to allow apt to use a repository over HTTPS
+  #   apt:
+  #     state: present
+  #     pkg:
+  #     - ca-certificates
+  #     - gnupg
+  #     - curl
+  #     - gnupg
+  #     - lsb-release
+
+  # - name: Create a directory if it does not exist
+  #   file:
+  #     path: /etc/apt/keyrings
+  #     state: directory
+  #     mode: '0755'
+
+  # - name: "Check if path exists"
+  #   stat:
+  #     path: "/etc/apt/keyrings/docker.gpg"
+  #   register: result
+
+  # - name: Add Docker's official GPG key
+  #   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  #   when: not result.stat.exists
+
+  # - name: Make sure universe repository is enabled
+  #   apt_repository:
+  #     repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu bionic stable
+  #     state: present
+  #     update_cache: 'True'
+
+  # - name: Run the equivalent of "apt-get update" after update repository
+  #   apt:
+  #     update_cache: yes
+
+  # - name: Install packages to allow apt to use a repository over HTTPS
+  #   apt:
+  #     state: present
+  #     pkg:
+  #     - docker-ce
+  #     - docker-ce-cli
+  #     - containerd.io
+  #     - docker-compose-plugin
+
+  # - name: Enable service docker, and not touch the state
+  #   service:
+  #     name: docker
+  #     enabled: yes
+
+  # - name: Start service docker, if not started
+  #   service:
+  #     name: docker
+  #     state: started
+
+  # - name: >
+  #     Ping PostgreSQL server using non-default credentials and SSL
+  #     registering the return values into the result variable for future use
+  #   register: pgResult
+  #   until: "pgResult is not failed"
+  #   retries: 10
+  #   delay: 10
+  #   postgresql_ping:
+  #     db: orthanc
+  #     login_host: 192.168.56.12
+  #     login_port: 5432
+  #     login_user: orthanc
+  #     login_password: ceec4eif7ya
+  #     ssl_mode: disable
+
+  # - docker_compose:
+  #     when: pgResult.is_available == yes
+  #     project_name: orthanc
+  #     definition:
+  #       web:
+  #         image: osimis/orthanc:22.9.0
+  #         volumes:
+  #           - "/opt:/var/lib/orthanc/db:Z"
+  #         ports:
+  #           - 104:4242
+  #           - 80:8042
+  #         restart: 'unless-stopped'
+  #         environment:
+  #         # ENV Var Non-Standard
+  #           ORTHANC__NAME: "My Orthanc"
+  #           ORTHANC__STORAGE_MAX_SIZE: 0
+  #           ORTHANC__STORAGE_MAX_PATIENTS: 0
+  #           ORTHANC__SCHED_MAX_CONCURRENT_JOBS: 2
+  #           ORTHANC__HTTP_PORT: 8042
+  #           ORTHANC__DICOM_AET: ORTHANC
+  #           ORTHANC__DICOM_AET_CHECK_ENABLED: 'false'
+  #           ORTHANC__DICOM_PORT: 4242
+  #           ORTHANC__DICOM_SCP_TIMEOUT: 30
+  #           ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED: 'false'
+  #           ORTHANC__AC_ALLOW_REMOTE: 'true'
+  #           ORTHANC__AC_AUTHENTICATION_ENABLED: 'true'
+  #           ORTHANC__DICOM_MODALITIES: |
+  #             {"OHIF" : [ "OHIFDCM", "viewer", 3000 ],"PACS1" : [ "ORTHANC", "orthanc", 4242 ],"FINDSCU" : [ "FINDSCU", "192.168.56.12", 1234 ]}
+  #           ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: 'true'
+  #           DICOM_ALWAYS_ALLOW_STORE_ENABLED: 'true'
+  #           DICOM_CHECK_MODALITY_HOST_ENABLED: 'false'
+  #           DICOM_SCU_TIMEOUT:
+  #           HTTP_CL_TIMEOUT: 10
+  #           HTTP_CL_VERIFY_PEERS: 'true'
+  #           STABLE_AGE: 60
+  #           DICOM_STRICT_AET_COMPARISON_ENABLED: 'false'
+  #           ORTHANC__REGISTERED_USERS: |
+  #             {"demo": "demo"}
+  #           ORTHANC__POSTGRESQL__ENABLE_INDEX: 'true'
+  #           ORTHANC__POSTGRESQL__ENABLE_STORAGE: 'true'
+  #           ORTHANC__POSTGRESQL__HOST: 192.168.56.12
+  #           ORTHANC__POSTGRESQL__PORT: 5432
+  #           ORTHANC__POSTGRESQL__DATABASE: orthanc
+  #           ORTHANC__POSTGRESQL__USERNAME: orthanc
+  #           ORTHANC__POSTGRESQL__PASSWORD: ceec4eif7ya
+  #           ORTHANC__POSTGRESQL__ENABLE_SSL: 'false'
+  #   register: output
+
+  # - debug:
+  #     var: output
+
+  # - name: Template a file to /etc/file.conf
+  #   ansible.builtin.template:
+  #     src: ./templates/docker.list.j2
+  #     dest: /etc/apt/sources.list.d/docker.list
+  #     owner: root
+  #     group: root
+  #     mode: '0644'
