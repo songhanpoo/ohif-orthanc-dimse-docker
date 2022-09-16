@@ -1,4 +1,6 @@
 - hosts: all
+  vars:
+    - cidr_allow_postgresql: ''
   become: true
   tasks:
   - name: Run the equivalent of "apt-get update" as a separate step
