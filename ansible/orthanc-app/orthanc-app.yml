@@ -95,6 +95,7 @@
   #     login_password: ceec4eif7ya
   #     ssl_mode: disable
 
+###
   # - docker_compose:
   #     when: pgResult.is_available == yes
   #     project_name: orthanc
