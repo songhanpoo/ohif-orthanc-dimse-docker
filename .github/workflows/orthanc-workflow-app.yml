@@ -1,10 +1,16 @@
-name: GitHub Actions Demo
+name: Automate deploy to orthanc app
 on:
   push:
     branches:
       - master
     paths:
     - 'ansible/orthanc-app/**'
+
+env:
+  CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
+  ORTHANC_PGSQL_DB_NAME: orthanc
+  ORTHANC_PGSQL_HOST: "172.16.16.17"
+
 jobs:
   checking:
     runs-on: self-hosted
@@ -68,24 +74,8 @@ jobs:
           playbook: orthanc-app.yml
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-app
-          # Optional, SSH private key
-          # key: ${{secrets.SSH_PRIVATE_KEY}}
-          # Optional, literal inventory file contents
-          # inventory: |
-          #   [all]
-          #   localhost ansible_connection=local
-
-          #   [group1]
-          #   example.com
-          # Optional, SSH known hosts file content
-          # known_hosts: .known_hosts
-          # Optional, encrypted vault password
-          # vault_password: ${{secrets.VAULT_PASSWORD}}
-          # Optional, galaxy requirements filepath
-          # requirements: galaxy-requirements.yml
-          # Optional, additional flags to pass to ansible-playbook
-          # options: |
-          #   # --inventory .hosts
-          #   # --limit group1
-          #   # --extra-vars hello=there
-          #   -vv
+          options: |
+            -e orthanc_pg_db_host=${{env.ORTHANC_PGSQL_HOST}}
+            -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
+            -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
+            -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
