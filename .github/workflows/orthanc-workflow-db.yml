@@ -81,4 +81,4 @@ jobs:
           # --extra-vars orthanc.pg_user_name="orthanc"
           # --extra-vars orthanc.pg_user_name="ceec4eif7ya"
           options: |
-            --extra-vars "cidr_allow_postgresql=172.16.16.0/24"
+            -e idr_allow_postgresql=172.16.16.0/24
