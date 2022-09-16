@@ -80,9 +80,9 @@
       priv: ALL
       expires: infinity
 
-  - ufw:
-      rule: allow
-      port: '5432'
-      proto: tcp
+  # - ufw:
+  #     rule: allow
+  #     port: '5432'
+  #     proto: tcp
       # src: 
       #   - '172.16.16.16/32'
