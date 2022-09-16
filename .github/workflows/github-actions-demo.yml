@@ -1,7 +1,7 @@
 name: GitHub Actions Demo
 on: [push]
 jobs:
-  Ansible-Deploy:
+  Checking:
     runs-on: self-hosted
     steps:
     # Print metadata informations
@@ -27,9 +27,9 @@ jobs:
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
-          inventory: |
-            [all]
-            localhost ansible_connection=local
+          # inventory: |
+          #   [all]
+          #   localhost ansible_connection=local
 
           #   [group1]
           #   example.com
