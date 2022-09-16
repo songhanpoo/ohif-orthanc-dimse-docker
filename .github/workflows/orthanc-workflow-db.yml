@@ -35,9 +35,9 @@ jobs:
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
           options: |
             -e cidr_allow_postgresql=${{secrets.CIDR_ALLOW_POSTGRESQL}}
-            -e orthanc["pg_db_name"]=${{secrets.ORTHANC_PGSQL_DB_NAME}}
-            -e orthanc["pg_username"]=${{secrets.ORTHANC_PGSQL_USERNAME}}
-            -e orthanc["pg_passwd"]=${{secrets.ORTHANC_PGSQL_PASSWD}}
+            -e orthanc_pg_db_name=${{secrets.ORTHANC_PGSQL_DB_NAME}}
+            -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
+            -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
           # Optional, SSH known hosts file content
           # known_hosts: .known_hosts
           # Optional, encrypted vault password
