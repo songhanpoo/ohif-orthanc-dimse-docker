@@ -77,8 +77,8 @@ jobs:
           # Optional, galaxy requirements filepath
           # requirements: galaxy-requirements.yml
           # Optional, additional flags to pass to ansible-playbook
+          # --extra-vars orthanc.pg_db_name="orthanc"
+          # --extra-vars orthanc.pg_user_name="orthanc"
+          # --extra-vars orthanc.pg_user_name="ceec4eif7ya"
           options: |
             --extra-vars cidr_allow_postgresql=${{secrets.CIDR_ALLOW_POSTGRESQL}}
-            --extra-vars orthanc.pg_db_name="orthanc"
-            --extra-vars orthanc.pg_user_name="orthanc"
-            --extra-vars orthanc.pg_user_name="ceec4eif7ya"

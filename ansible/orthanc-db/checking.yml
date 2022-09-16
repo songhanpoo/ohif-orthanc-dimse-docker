@@ -16,5 +16,5 @@
       - The deployment is running on ansible_host.split('=')[1]
       - The configuration orthanc 
       - "[PGSQL] CIDR allow {{ cidr_allow_postgresql }}"
-      - "[PGSQL] database name is {{ orthanc.pg_db_name}}"
-      - "[PGSQL] username is {{ orthanc.pg_user_name }}"
+      # - "[PGSQL] database name is {{ orthanc.pg_db_name}}"
+      # - "[PGSQL] username is {{ orthanc.pg_user_name }}"
