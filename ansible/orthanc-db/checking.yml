@@ -8,4 +8,4 @@
 
   - name: DEBUG
     debug:
-      msg: System {{ ansible_host }}
+      msg: {{ ansible_host }}
