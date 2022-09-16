@@ -28,11 +28,13 @@ jobs:
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-db
           # Optional, SSH private key
-          key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY_}}
+          key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
           inventory: |
             [all]
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
+          options: |
+            -e "cidr_allow_postgresql=${{secrets.CIDR_ALLOW_POSTGRESQL}}"
           # Optional, SSH known hosts file content
           # known_hosts: .known_hosts
           # Optional, encrypted vault password
