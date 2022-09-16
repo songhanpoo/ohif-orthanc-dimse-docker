@@ -4,12 +4,8 @@
 
   - name: Print the gateway for each host when defined
     debug:
-      msg: System {{ inventory_hostname }}
+      msg: System {{ inventory_hostname.ansible_host }}
 
   - name: DEBUG
     debug:
       msg: System {{ ansible_hostname }}
-
-  - name: Get Real ip get ip remote host
-    debug:
-      msg: System {{ hostvars[inventory_hostname].ansible_host }}
