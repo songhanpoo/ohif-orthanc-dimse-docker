@@ -7,7 +7,6 @@
     apt:
       update_cache: yes
 
-#
   - name: Install packages to allow apt to debug and trouble shoot
     apt:
       state: present
@@ -69,17 +68,17 @@
     become: true
     become_user: 'postgres'
     postgresql_db:
-      name: orthanc
+      name: "{{orthanc_pg_db_name}}"
 
-  # - name: Connect to acme database, create "{{orthanc_pg_username}} user, and grant access to database and {{orthanc_pg_db_name}} table
-  #   become: true
-  #   become_user: 'postgres'
-  #   postgresql_user:
-  #     db: "{{orthanc_pg_db_name}}"
-  #     name: "{{orthanc_pg_username}}"
-  #     password: "{{orthanc_pg_passwd}}"
-  #     priv: ALL
-  #     expires: infinity
+  - name: Connect to acme database, create "{{orthanc_pg_username}} user, and grant access to database and {{orthanc_pg_db_name}} table
+    become: true
+    become_user: 'postgres'
+    postgresql_user:
+      db: "{{orthanc_pg_db_name}}"
+      name: "{{orthanc_pg_username}}"
+      password: "{{orthanc_pg_passwd}}"
+      priv: ALL
+      expires: infinity
 
   # - ufw:
   #     rule: allow
