@@ -147,5 +147,5 @@
 
   - debug:
       msg: 
-        - "{{output}}"
+        # - "{{output}}"
         - "{{pgResult}}"
