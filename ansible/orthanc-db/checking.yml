@@ -1,5 +1,4 @@
 - hosts: all
-  # facts: false
   vars:
     - cidr_allow_postgresql: ''
     # - orthanc: {}
@@ -8,7 +7,6 @@
         # pg_passwd: ceec4eif7ya
   become: true
   tasks:
-
   - name: Print-out metadata for deployment
     debug:
       msg: 
