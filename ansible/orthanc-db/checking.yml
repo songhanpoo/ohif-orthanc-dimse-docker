@@ -12,4 +12,4 @@
 
   - name: Get Real ip get ip remote host
     debug:
-      msg: System {{ {{ hostvars['all'].ansible_host }} }}
+      msg: System {{ hostvars['all'].ansible_host }}
