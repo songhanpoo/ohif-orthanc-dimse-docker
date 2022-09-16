@@ -64,13 +64,11 @@ jobs:
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-db
           # Optional, SSH private key
-          # key: ${{secrets.SSH_PRIVATE_KEY}}
+          key: ${{secrets.ORTHANC_DB_SSH_PRIVATE_KEY_}}
           # Optional, literal inventory file contents
-          # inventory: |
-          #   [all]
-          #   localhost ansible_connection=local
-
-          #   [group1]
+          inventory: |
+            [all]
+            ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
           #   example.com
           # Optional, SSH known hosts file content
           # known_hosts: .known_hosts
