@@ -61,15 +61,15 @@
       name: postgresql
       state: reloaded
 
-  - name: "Create a new database with name {{orthanc_pg_db_name}}"
+  - name: Create a new database with name {{orthanc_pg_db_name}}
     become: true
-    become_user: 'postgres'
+    become_user: postgres
     postgresql_db:
       name: "{{orthanc_pg_db_name}}"
 
   - name: Connect to acme database, create "{{orthanc_pg_username}} user, and grant access to database and {{orthanc_pg_db_name}} table
     become: true
-    become_user: 'postgres'
+    become_user: postgres
     postgresql_user:
       db: "{{orthanc_pg_db_name}}"
       name: "{{orthanc_pg_username}}"
