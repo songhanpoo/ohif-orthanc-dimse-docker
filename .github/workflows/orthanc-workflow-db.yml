@@ -6,6 +6,7 @@ on:
 
 env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
+  ORTHANC_PGSQL_DB_NAME: orthanc
 
 jobs:
   checking:
@@ -39,32 +40,15 @@ jobs:
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
           options: |
             -e cidr_allow_postgresql=${{env.CIDR_ALLOW_POSTGRESQL}}
-            -e orthanc_pg_db_name=${{secrets.ORTHANC_PGSQL_DB_NAME}}
+            -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
             -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
             -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
-          # Optional, SSH known hosts file content
-          # known_hosts: .known_hosts
-          # Optional, encrypted vault password
-          # vault_password: ${{secrets.VAULT_PASSWORD}}
-          # Optional, galaxy requirements filepath
-          # requirements: galaxy-requirements.yml
-          # Optional, additional flags to pass to ansible-playbook
-          # options: |
-          #   # --inventory .hosts
-          #   # --limit group1
-          #   # --extra-vars hello=there
-          #   -vv
+
   deploy:
     runs-on: self-hosted
     if: ${{ success() }}
     needs: checking
     steps:
-      - run: echo "🎉 The job complted checking"
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: export
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
@@ -79,16 +63,7 @@ jobs:
             [all]
             ansible_host=172.16.16.17 ansible_user=desk ansible_connection=local
           options: |
-            -e "cidr_allow_postgresql=172.16.16.0/24"
-            
-          #   example.com
-          # Optional, SSH known hosts file content
-          # known_hosts: .known_hosts
-          # Optional, encrypted vault password
-          # vault_password: ${{secrets.VAULT_PASSWORD}}
-          # Optional, galaxy requirements filepath
-          # requirements: galaxy-requirements.yml
-          # Optional, additional flags to pass to ansible-playbook
-          # --extra-vars orthanc.pg_db_name="orthanc"
-          # --extra-vars orthanc.pg_user_name="orthanc"
-          # --extra-vars orthanc.pg_user_name="ceec4eif7ya"
+            -e cidr_allow_postgresql=${{env.CIDR_ALLOW_POSTGRESQL}}
+            -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
+            -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
+            -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
