@@ -2,9 +2,9 @@
   become: true
   tasks:
 
-  - name: Print the gateway for each host when defined
-    debug:
-      msg: System {{ hostvars[inventory_hostname].ansible_ssh_host }}
+  # - name: Print the gateway for each host when defined
+  #   debug:
+  #     msg: System {{ hostvars[inventory_hostname].ansible_ssh_host }}
 
   - name: DEBUG
     debug:
