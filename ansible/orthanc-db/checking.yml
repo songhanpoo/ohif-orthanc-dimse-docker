@@ -8,6 +8,6 @@
 
   - name: DEBUG
     debug:
-      msg: "{{ ansible_host }}"
+      msg: "{{ ansible_host.split('=')[1] }}"
   
   - debug: var=hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]
