@@ -1,0 +1,88 @@
+- hosts: all
+  vars:
+  - cidr_allow_postgresql: ''
+  become: true
+  tasks:
+  - name: Run the equivalent of "apt-get update" as a separate step
+    apt:
+      update_cache: yes
+
+  - name: Install packages to allow apt to debug and trouble shoot
+    apt:
+      state: present
+      pkg:
+      - vim
+      - acl
+      - curl
+      - net-tools
+      - python3-pip
+      - build-essential
+      - libpq-dev
+      - python-dev
+
+  - name: Install psycopg2 and docker, using the 'pip3' executable
+    pip:
+      name: 
+        - psycopg2
+      executable: pip3
+
+  - name: Install packages to allow apt to debug and trouble shoot
+    apt:
+      state: present
+      pkg:
+      - postgresql
+      - postgresql-contrib
+
+  - name: Enable service postgresql, and not touch the state
+    service:
+      name: postgresql
+      enabled: yes
+
+  - name: Start service postgresql, if not started
+    service:
+      name: postgresql
+      state: started
+
+  - name: Template a file to /etc/postgresql/10/main/pg_hba.conf
+    template:
+      src: ./templates/pg_hba.conf.j2
+      dest: /etc/postgresql/12/main/pg_hba.conf
+      owner: postgres
+      group: postgres
+      mode: '0640'
+
+  - name: Template a file to /etc/postgresql/10/main/postgresql.conf
+    template:
+      src: ./templates/postgresql.conf.j2
+      dest: /etc/postgresql/12/main/postgresql.conf
+      owner: postgres
+      group: postgres
+      mode: '0640'
+
+  - name: Reload service postgresql
+    service:
+      name: postgresql
+      state: reloaded
+
+  - name: "Create a new database with name {{orthanc_pg_db_name}}"
+    become: true
+    become_user: 'postgres'
+    postgresql_db:
+      name: "{{orthanc_pg_db_name}}"
+
+  - name: Connect to acme database, create "{{orthanc_pg_username}} user, and grant access to database and {{orthanc_pg_db_name}} table
+    become: true
+    become_user: 'postgres'
+    postgresql_user:
+      db: "{{orthanc_pg_db_name}}"
+      name: "{{orthanc_pg_username}}"
+      password: "{{orthanc_pg_passwd}}"
+      priv: ALL
+      expires: infinity
+
+  # - ufw:
+  #     rule: allow
+  #     port: '5432'
+  #     proto: tcp
+      # src: 
+      #   - '172.16.16.16/32'
