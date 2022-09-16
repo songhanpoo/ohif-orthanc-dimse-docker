@@ -35,8 +35,8 @@ jobs:
           playbook: checking.yml
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-app
-          options: |
-            -e orthanc_lst_user=${{env.orthanc}}
+          # options: |
+          #   -e orthanc_lst_user=${{env.orthanc}}
           # Optional, SSH private key
           # key: ${{secrets.SSH_PRIVATE_KEY}}
           # Optional, literal inventory file contents
