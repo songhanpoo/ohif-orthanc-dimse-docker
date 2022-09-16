@@ -1,11 +1,11 @@
 - hosts: localhost
   become: true
   vars:
-    orthanc_lst_user:
-      - username: demo
-        password: demo
-      - username: mgmt
-        password: mgmt
+  orthanc_lst_user:
+    - username: demo
+      password: demo
+    - username: mgmt
+      password: mgmt
   tasks:
 
   - name: Print the gateway for each host when defined
@@ -15,4 +15,4 @@
 
   - name: debug
     debug:
-      msg: "{{ orthanc_lst_user | to_json }} "
+      msg: "{{ orthanc_lst_user }}"
