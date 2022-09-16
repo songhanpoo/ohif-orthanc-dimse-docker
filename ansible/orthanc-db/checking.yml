@@ -1,16 +1,20 @@
 - hosts: all
-  vars:
-    - cidr_allow_postgresql: ''
+  # vars:
+  #   - cidr_allow_postgresql: ''
+  #   - pg_db_name: ''
+  #   - pg_username: ''
+  #   - pg_passwd: ''
   become: true
   tasks:
+
   - name: Print-out metadata for deployment
     debug:
       msg: 
       - ===============================================================
-      - The deployment is running on {{ansible_host.split('=')[1]}}
+      - Ansible controller is {{ inventory_hostname }}
       - The configuration orthanc 
       - "[PGSQL] CIDR allow {{ cidr_allow_postgresql }}"
-      - "[PGSQL] database name is {{ orthanc_pg_db_name}}"
-      - "[PGSQL] username is {{ orthanc_pg_username }}"
-      - "[PGSQL] username is {{ orthanc_pg_passwd }}"
+      - "[PGSQL] database name is {{ pg_db_name}}"
+      - "[PGSQL] username is {{ pg_username }}"
+      - "[PGSQL] username is {{ pg_passwd }}"
 
