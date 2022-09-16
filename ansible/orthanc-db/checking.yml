@@ -4,8 +4,8 @@
 
   - name: Print the gateway for each host when defined
     debug:
-      msg: System {{ inventory_hostname['ansible_host'] }}
+      msg: System {{ hostvars[inventory_hostname].ansible_ssh_host }}
 
   - name: DEBUG
     debug:
-      msg: System {{ ansible_hostname }}
+      msg: System {{ ansible_ssh_host }}
