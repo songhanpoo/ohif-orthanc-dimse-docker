@@ -61,16 +61,11 @@
       name: postgresql
       state: reloaded
 
-  - name: Create a new database with name "acme"
+  - name: "Create a new database with name {{orthanc_pg_db_name}}"
     become: true
     become_user: 'postgres'
     postgresql_db:
       name: "{{orthanc_pg_db_name}}"
-
-      # - "[PGSQL] CIDR allow {{ cidr_allow_postgresql }}"
-      # - "[PGSQL] database name is {{ orthanc_pg_db_name}}"
-      # - "[PGSQL] username is {{ orthanc_pg_username }}"
-      # - "[PGSQL] username is {{ orthanc_pg_passwd }}"
 
   - name: Connect to acme database, create "{{orthanc_pg_username}} user, and grant access to database and {{orthanc_pg_db_name}} table
     become: true
