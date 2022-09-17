@@ -7,7 +7,6 @@ on:
     - 'ansible/orthanc-app/**'
 
 env:
-  CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
   ORTHANC__NAME: "My Orthanc"
   ORTHANC__STORAGE_MAX_SIZE: 0
   ORTHANC__STORAGE_MAX_PATIENTS: 0
