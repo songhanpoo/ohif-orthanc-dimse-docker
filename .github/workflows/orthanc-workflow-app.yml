@@ -66,6 +66,8 @@ jobs:
     # if: ${{ always() }}
     # needs: checking
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - run: echo "🎉 The job completed checking"
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2

@@ -95,9 +95,10 @@
       login_user: "{{ORTHANC__POSTGRESQL__USERNAME}}"
       login_password: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
       ssl_mode: disable
-##
+#######
   - name: Docker compose bundle of orthanc application
     when: pgResult.is_available == true
+    register: output
     docker_compose:
       project_name: orthanc
       definition:
@@ -141,7 +142,6 @@
             ORTHANC__POSTGRESQL__USERNAME: "{{ORTHANC__POSTGRESQL__USERNAME}}"
             ORTHANC__POSTGRESQL__PASSWORD: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
             ORTHANC__POSTGRESQL__ENABLE_SSL: "{{ORTHANC__POSTGRESQL__ENABLE_SSL}}"
-    register: output
 
   - debug:
       msg: 
