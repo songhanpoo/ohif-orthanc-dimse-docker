@@ -1,11 +1,6 @@
 ---
 - hosts: localhost
   become: true
-  # vars:
-  # - ORTHANC__NAME:
-  # - ORTHANC__STORAGE_MAX_SIZE
-  # - DICOM_MODALITIES:
-  ###
   tasks:
   - name: Run the equivalent of "apt-get update" as a separate step
     apt:
@@ -93,11 +88,11 @@
     retries: 10
     delay: 10
     postgresql_ping:
-      db: "{{orthanc_pg_db_name}}"
-      login_host: "{{orthanc_pg_db_host}}"
+      db: "{{ORTHANC__POSTGRESQL__DATABASE}}"
+      login_host: "{{ORTHANC__POSTGRESQL__HOST}}"
       login_port: 5432
-      login_user: "{{orthanc_pg_username}}"
-      login_password: "{{orthanc_pg_passwd}}"
+      login_user: "{{ORTHANC__POSTGRESQL__USERNAME}}"
+      login_password: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
       ssl_mode: disable
 ##
   - name: Docker compose bundle of orthanc application
