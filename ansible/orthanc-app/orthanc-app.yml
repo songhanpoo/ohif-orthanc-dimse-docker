@@ -101,7 +101,7 @@
         - "{{ORTHANC__REGISTERED_USERS}}"
         - "{{ORTHANC__DICOM_MODALITIES}}"
 
-##############
+############################
   # - name: Docker compose bundle of orthanc application
   #   when: pgResult.is_available == true
   #   register: output
