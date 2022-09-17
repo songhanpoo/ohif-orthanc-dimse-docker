@@ -1,5 +1,8 @@
 {
-  "OHIF":["OHIFDCM","viewer",3000],
-  "PACS1":["ORTHANC","orthanc",4242],
-  "FINDSCU":["FINDSCU","192.168.56.12", 1234]
+  "ORTHANC__DICOM_MODALITIES":
+    {
+      "OHIF":["OHIFDCM","viewer",3000],
+      "PACS1":["ORTHANC","orthanc",4242],
+      "FINDSCU":["FINDSCU","192.168.56.12", 1234]
+    }
 }
