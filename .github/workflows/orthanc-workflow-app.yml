@@ -17,7 +17,7 @@ env:
   VIEWER__IMG: ohif/viewer:v4.12.38.19558
   VIEWER__ATE_PORT: 3000
   VIEWER__MONGO_URL: mongodb://mongo:27017/ohif
-  VIEWER__CONF: /stream/viewer.json:/app/app.json:ro
+  VIEWER__CONF: /config/viewer.json:/app/app.json:ro
 
 #--------------MONGODB CONFIG--------------#
   MONGODB__IMG: mongo:6.0.1
