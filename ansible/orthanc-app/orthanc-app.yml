@@ -98,10 +98,8 @@
 
   - debug:
       msg: 
-        - "{{ORTHANC__REGISTERED_USERS.orthanc }}"
-        - "{{OHIF.orthanc }}"
-        - "{{ORTHANC__REGISTERED_USERS | string }}"
-        - "{{ORTHANC__DICOM_MODALITIES | string }}"
+        - "{{ORTHANC__REGISTERED_USERS | to_json }}"
+        - "{{ORTHANC__DICOM_MODALITIES | to_json }}"
 
 ############################
   # - name: Docker compose bundle of orthanc application
