@@ -20,7 +20,7 @@ env:
   VIEWER__CONF: /config/viewer.json:/app/app.json:ro
 
 #--------------MONGODB CONFIG--------------#
-  MONGODB__IMG: mongo:6.0.1
+  MONGODB__IMG: mongo:4.0.14
   MONGODB__PORT: 27017
   MONGODB__DIR: /mnt/orthanc/mongodb:/data/db
 
