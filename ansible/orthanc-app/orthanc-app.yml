@@ -95,11 +95,6 @@
       login_password: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
       ssl_mode: disable
 
-  - debug:
-      msg: 
-        - "{{ORTHANC__REGISTERED_USERS }}"
-        - "{{ORTHANC__DICOM_MODALITIES }}"
-
   - name: Docker compose bundle of orthanc application
     when: pgResult.is_available == true
     register: output
