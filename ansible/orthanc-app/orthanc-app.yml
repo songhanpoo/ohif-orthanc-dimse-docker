@@ -98,8 +98,8 @@
 
   - debug:
       msg: 
-        - "{{ORTHANC__REGISTERED_USERS }}"
-        - "{{ORTHANC__DICOM_MODALITIES }}"
+        - "{{ORTHANC__REGISTERED_USERS | from_json}}"
+        - "{{ORTHANC__DICOM_MODALITIES | from_json }}"
 
 ############################
 ############################
