@@ -5,6 +5,7 @@
   # - ORTHANC__NAME:
   # - ORTHANC__STORAGE_MAX_SIZE
   # - DICOM_MODALITIES:
+  #
   tasks:
   - name: Run the equivalent of "apt-get update" as a separate step
     apt:
