@@ -8,8 +8,35 @@ on:
 
 env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
-  ORTHANC_PGSQL_DB_NAME: orthanc
-  ORTHANC_PGSQL_HOST: "172.16.16.17"
+  ORTHANC__NAME: "My Orthanc"
+  ORTHANC__STORAGE_MAX_SIZE: 0
+  ORTHANC__STORAGE_MAX_PATIENTS: 0
+  ORTHANC__SCHED_MAX_CONCURRENT_JOBS: 2
+  ORTHANC__HTTP_PORT: 8042
+  ORTHANC__DICOM_AET: ORTHANC
+  ORTHANC__DICOM_AET_CHECK_ENABLED: 'false'
+  ORTHANC__DICOM_PORT: 4242
+  ORTHANC__DICOM_SCP_TIMEOUT: 30
+  ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED: 'false'
+  ORTHANC__AC_ALLOW_REMOTE: 'true'
+  ORTHANC__AC_AUTHENTICATION_ENABLED: 'true'
+  ORTHANC__DICOM_MODALITIES: |
+    {"OHIF" : [ "OHIFDCM", "viewer", 3000 ],"PACS1" : [ "ORTHANC", "orthanc", 4242 ],"FINDSCU" : [ "FINDSCU", "192.168.56.12", 1234 ]}
+  ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: 'true'
+  DICOM_ALWAYS_ALLOW_STORE_ENABLED: 'true'
+  DICOM_CHECK_MODALITY_HOST_ENABLED: 'false'
+  HTTP_CL_TIMEOUT: 10
+  HTTP_CL_VERIFY_PEERS: 'true'
+  STABLE_AGE: 60
+  DICOM_STRICT_AET_COMPARISON_ENABLED: 'false'
+  ORTHANC__REGISTERED_USERS: |
+    {"orthanc": "orthanc"}
+  ORTHANC__POSTGRESQL__ENABLE_INDEX: 'true'
+  ORTHANC__POSTGRESQL__ENABLE_STORAGE: 'true'
+  ORTHANC__POSTGRESQL__HOST: "{{orthanc_pg_db_host}}"
+  ORTHANC__POSTGRESQL__PORT: 5432
+  ORTHANC__POSTGRESQL__DATABASE: orthanc
+  ORTHANC__POSTGRESQL__ENABLE_SSL: 'false'
 
 jobs:
   checking:
@@ -35,45 +62,45 @@ jobs:
           playbook: checking.yml
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-app
-          # options: |
-          #   -e orthanc_lst_user=${{env.orthanc}}
-          # Optional, SSH private key
-          # key: ${{secrets.SSH_PRIVATE_KEY}}
-          # Optional, literal inventory file contents
-          # inventory: |
-          #   [all]
-          #   localhost ansible_connection=local
-
-          #   [group1]
-          #   example.com
-          # Optional, SSH known hosts file content
-          # known_hosts: .known_hosts
-          # Optional, encrypted vault password
-          # vault_password: ${{secrets.VAULT_PASSWORD}}
-          # Optional, galaxy requirements filepath
-          # requirements: galaxy-requirements.yml
-          # Optional, additional flags to pass to ansible-playbook
-          # options: |
-          #   # --inventory .hosts
-          #   # --limit group1
-          #   # --extra-vars hello=there
-          #   -vv
-  # deploy:
-  #   runs-on: self-hosted
-  #   if: ${{ always() }}
-  #   needs: checking
-  #   steps:
-  #     - run: echo "🎉 The job completed checking"
-  #     - name: Run playbook
-  #       uses: dawidd6/action-ansible-playbook@v2
-  #       with:
-  #         # Required, playbook filepath
-  #         playbook: orthanc-app.yml
-  #         # Optional, directory where playbooks live
-  #         directory: ./ansible/orthanc-app
-  #         options: |
-  #           -e orthanc_pg_db_host=${{env.ORTHANC_PGSQL_HOST}}
-  #           -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
-  #           -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
-  #           -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
-  #           -e orthanc_lst_user=${{env.orthanc}}
+  deploy:
+    runs-on: self-hosted
+    if: ${{ always() }}
+    needs: checking
+    steps:
+      - run: echo "🎉 The job completed checking"
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: orthanc-app.yml
+          # Optional, directory where playbooks live
+          directory: ./ansible/orthanc-app
+          options: |
+            -e ORTHANC__NAME=${{env.ORTHANC__NAME}}
+            -e ORTHANC__STORAGE_MAX_SIZE=${{env.ORTHANC__STORAGE_MAX_SIZE}}
+            -e ORTHANC__STORAGE_MAX_PATIENTS=${{env.ORTHANC__STORAGE_MAX_PATIENTS}}
+            -e ORTHANC__SCHED_MAX_CONCURRENT_JOBS=${{env.ORTHANC__SCHED_MAX_CONCURRENT_JOBS}}
+            -e ORTHANC__HTTP_PORT=${{env.ORTHANC__HTTP_PORT}}
+            -e ORTHANC__DICOM_AET=${{env.ORTHANC__DICOM_AET}}
+            -e ORTHANC__DICOM_AET_CHECK_ENABLED=${{env.ORTHANC__DICOM_AET_CHECK_ENABLED}}
+            -e ORTHANC__DICOM_PORT=${{env.ORTHANC__DICOM_PORT}}
+            -e ORTHANC__DICOM_SCP_TIMEOUT=${{env.ORTHANC__DICOM_SCP_TIMEOUT}}
+            -e ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED=${{env.ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED}}
+            -e ORTHANC__AC_ALLOW_REMOTE=${{env.ORTHANC__AC_ALLOW_REMOTE}}
+            -e ORTHANC__AC_AUTHENTICATION_ENABLED=${{env.ORTHANC__AC_AUTHENTICATION_ENABLED}}
+            -e ORTHANC__DICOM_MODALITIES=${{env.ORTHANC__DICOM_MODALITIES}}
+            -e ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED=${{env.ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED}}
+            -e DICOM_ALWAYS_ALLOW_STORE_ENABLED=${{env.DICOM_ALWAYS_ALLOW_STORE_ENABLED}}
+            -e DICOM_CHECK_MODALITY_HOST_ENABLED=${{env.DICOM_CHECK_MODALITY_HOST_ENABLED}}
+            -e HTTP_CL_TIMEOUT=${{env.HTTP_CL_TIMEOUT}}
+            -e HTTP_CL_VERIFY_PEERS=${{env.HTTP_CL_VERIFY_PEERS}}
+            -e STABLE_AGE=${{env.STABLE_AGE}}
+            -e DICOM_STRICT_AET_COMPARISON_ENABLED=${{env.DICOM_STRICT_AET_COMPARISON_ENABLED}}
+            -e ORTHANC__REGISTERED_USERS=${{ORTHANC__REGISTERED_USERS}}
+            -e ORTHANC__POSTGRESQL__ENABLE_INDEX=${{env.ORTHANC__POSTGRESQL__ENABLE_INDEX}}
+            -e ORTHANC__POSTGRESQL__ENABLE_STORAGE=${{env.ORTHANC__POSTGRESQL__ENABLE_STORAGE}}
+            -e ORTHANC__POSTGRESQL__HOST=${{env.ORTHANC__POSTGRESQL__HOST}}
+            -e ORTHANC__POSTGRESQL__DATABASE=${{env.ORTHANC_PGSQL_DB_NAME}}
+            -e ORTHANC__POSTGRESQL__ENABLE_SSL=${{env.ORTHANC__POSTGRESQL__ENABLE_SSL}}
+            -e ORTHANC__POSTGRESQL__USERNAME=${{secrets.ORTHANC_PGSQL_USERNAME}}
+            -e ORTHANC__POSTGRESQL__PASSWORD=${{secrets.ORTHANC_PGSQL_PASSWD}}

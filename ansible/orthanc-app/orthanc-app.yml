@@ -1,6 +1,29 @@
 ---
 - hosts: localhost
   become: true
+  # vars:
+  # - ORTHANC__NAME:
+  # - ORTHANC__STORAGE_MAX_SIZE
+  # - DICOM_MODALITIES:
+
+#       {
+#   "OHIF": [
+#     "OHIFDCM",
+#     "viewer",
+#     3000
+#   ],
+#   "PACS1": [
+#     "ORTHANC",
+#     "orthanc",
+#     4242
+#   ],
+#   "FINDSCU": [
+#     "FINDSCU",
+#     "192.168.56.12",
+#     1234
+#   ]
+# }
+
   tasks:
   - name: Run the equivalent of "apt-get update" as a separate step
     apt:
@@ -102,46 +125,44 @@
       definition:
         web:
           image: osimis/orthanc:22.9.0
-          volumes:
-            - "/opt:/var/lib/orthanc/db:Z"
+          # volumes:
+          #   - "/opt:/var/lib/orthanc/db:Z"
           ports:
             - 104:4242
             - 80:8042
           restart: 'unless-stopped'
           environment:
           # ENV Var Non-Standard
-            ORTHANC__NAME: "My Orthanc"
-            ORTHANC__STORAGE_MAX_SIZE: 0
-            ORTHANC__STORAGE_MAX_PATIENTS: 0
-            ORTHANC__SCHED_MAX_CONCURRENT_JOBS: 2
-            ORTHANC__HTTP_PORT: 8042
-            ORTHANC__DICOM_AET: ORTHANC
-            ORTHANC__DICOM_AET_CHECK_ENABLED: 'false'
-            ORTHANC__DICOM_PORT: 4242
-            ORTHANC__DICOM_SCP_TIMEOUT: 30
-            ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED: 'false'
-            ORTHANC__AC_ALLOW_REMOTE: 'true'
-            ORTHANC__AC_AUTHENTICATION_ENABLED: 'true'
-            ORTHANC__DICOM_MODALITIES: |
-              {"OHIF" : [ "OHIFDCM", "viewer", 3000 ],"PACS1" : [ "ORTHANC", "orthanc", 4242 ],"FINDSCU" : [ "FINDSCU", "192.168.56.12", 1234 ]}
-            ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: 'true'
-            DICOM_ALWAYS_ALLOW_STORE_ENABLED: 'true'
-            DICOM_CHECK_MODALITY_HOST_ENABLED: 'false'
-            DICOM_SCU_TIMEOUT:
-            HTTP_CL_TIMEOUT: 10
-            HTTP_CL_VERIFY_PEERS: 'true'
-            STABLE_AGE: 60
-            DICOM_STRICT_AET_COMPARISON_ENABLED: 'false'
-            ORTHANC__REGISTERED_USERS: |
-              {"orthanc": "orthanc"}
-            ORTHANC__POSTGRESQL__ENABLE_INDEX: 'true'
-            ORTHANC__POSTGRESQL__ENABLE_STORAGE: 'true'
-            ORTHANC__POSTGRESQL__HOST: "{{orthanc_pg_db_host}}"
-            ORTHANC__POSTGRESQL__PORT: 5432
-            ORTHANC__POSTGRESQL__DATABASE: "{{orthanc_pg_db_name}}"
-            ORTHANC__POSTGRESQL__USERNAME: "{{orthanc_pg_username}}"
-            ORTHANC__POSTGRESQL__PASSWORD: "{{orthanc_pg_passwd}}"
-            ORTHANC__POSTGRESQL__ENABLE_SSL: 'false'
+            ORTHANC__NAME: "{{ORTHANC__NAME}}"
+            ORTHANC__STORAGE_MAX_SIZE: "{{ORTHANC__STORAGE_MAX_SIZE}}"
+            ORTHANC__STORAGE_MAX_PATIENTS: "{{ORTHANC__STORAGE_MAX_PATIENTS}}"
+            ORTHANC__SCHED_MAX_CONCURRENT_JOBS: "{{ORTHANC__SCHED_MAX_CONCURRENT_JOBS}}"
+            ORTHANC__HTTP_PORT: "{{ORTHANC__HTTP_PORT}}"
+            ORTHANC__DICOM_AET: "{{ORTHANC__DICOM_AET}}"
+            ORTHANC__DICOM_AET_CHECK_ENABLED: "{{ORTHANC__DICOM_AET_CHECK_ENABLED}}"
+            ORTHANC__DICOM_PORT: "{{ORTHANC__DICOM_PORT}}"
+            ORTHANC__DICOM_SCP_TIMEOUT: "{{ORTHANC__DICOM_SCP_TIMEOUT}}"
+            ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED: "{{ORTHANC__DICOM_UNKNOWN_SOP_CLASS_ACCEPTED}}"
+            ORTHANC__AC_ALLOW_REMOTE: "{{ORTHANC__AC_ALLOW_REMOTE}}"
+            ORTHANC__AC_AUTHENTICATION_ENABLED: "{{ORTHANC__AC_AUTHENTICATION_ENABLED}}"
+            ORTHANC__DICOM_MODALITIES: "{{ORTHANC__DICOM_MODALITIES}}"
+            ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: "{{ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED}}"
+            DICOM_ALWAYS_ALLOW_STORE_ENABLED: "{{DICOM_ALWAYS_ALLOW_STORE_ENABLED}}"
+            DICOM_CHECK_MODALITY_HOST_ENABLED: "{{DICOM_CHECK_MODALITY_HOST_ENABLED}}"
+            # DICOM_SCU_TIMEOUT:
+            HTTP_CL_TIMEOUT: "{{HTTP_CL_TIMEOUT}}"
+            HTTP_CL_VERIFY_PEERS: "{{HTTP_CL_VERIFY_PEERS}}"
+            STABLE_AGE: "{{STABLE_AGE}}"
+            DICOM_STRICT_AET_COMPARISON_ENABLED: "{{DICOM_STRICT_AET_COMPARISON_ENABLED}}"
+            ORTHANC__REGISTERED_USERS: "{{ORTHANC__REGISTERED_USERS}}"
+            ORTHANC__POSTGRESQL__ENABLE_INDEX: "{{ORTHANC__POSTGRESQL__ENABLE_INDEX}}"
+            ORTHANC__POSTGRESQL__ENABLE_STORAGE: "{{ORTHANC__POSTGRESQL__ENABLE_STORAGE}}"
+            ORTHANC__POSTGRESQL__HOST: "{{ORTHANC__POSTGRESQL__HOST}}"
+            ORTHANC__POSTGRESQL__PORT: "{{ORTHANC__POSTGRESQL__PORT}}"
+            ORTHANC__POSTGRESQL__DATABASE: "{{ORTHANC__POSTGRESQL__DATABASE}}"
+            ORTHANC__POSTGRESQL__USERNAME: "{{ORTHANC__POSTGRESQL__USERNAME}}"
+            ORTHANC__POSTGRESQL__PASSWORD: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
+            ORTHANC__POSTGRESQL__ENABLE_SSL: "{{ORTHANC__POSTGRESQL__ENABLE_SSL}}"
     register: output
 
   - debug:
