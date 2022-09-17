@@ -126,6 +126,7 @@
           volumes:
             - "{{MONGODB__DIR}}"
 
+##
         orthanc:
           image: "{{ORTHANC__IMG}}"
           container_name: orthanc
