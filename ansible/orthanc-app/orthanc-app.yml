@@ -108,7 +108,6 @@
 ############################
 ############################
 ############################
-############################
   # - name: Docker compose bundle of orthanc application
   #   when: pgResult.is_available == true
   #   register: output
