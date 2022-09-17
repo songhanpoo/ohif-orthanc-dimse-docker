@@ -98,9 +98,10 @@
 
   - debug:
       msg: 
-        - "{{ORTHANC__REGISTERED_USERS | to_json }}"
-        - "{{ORTHANC__DICOM_MODALITIES | to_json }}"
+        - "{{ORTHANC__REGISTERED_USERS }}"
+        - "{{ORTHANC__DICOM_MODALITIES }}"
 
+############################
 ############################
   # - name: Docker compose bundle of orthanc application
   #   when: pgResult.is_available == true
