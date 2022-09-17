@@ -129,11 +129,11 @@
             ORTHANC__AC_ALLOW_REMOTE: "{{ORTHANC__AC_ALLOW_REMOTE}}"
             ORTHANC__AC_AUTHENTICATION_ENABLED: "{{ORTHANC__AC_AUTHENTICATION_ENABLED}}"
             ORTHANC__DICOM_MODALITIES: |
-              {
+              \{
                 {% for item in ORTHANC__DICOM_MODALITIES %}
                   "{{item}}":{{ ORTHANC__DICOM_MODALITIES[item] }},
                 {% endfor -%}
-              }
+              \}
             ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: "{{ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED}}"
             DICOM_ALWAYS_ALLOW_STORE_ENABLED: "{{DICOM_ALWAYS_ALLOW_STORE_ENABLED}}"
             DICOM_CHECK_MODALITY_HOST_ENABLED: "{{DICOM_CHECK_MODALITY_HOST_ENABLED}}"
