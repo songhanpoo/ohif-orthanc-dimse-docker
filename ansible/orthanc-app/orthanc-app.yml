@@ -2,11 +2,11 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: Run the equivalent of "apt-get update" as a separate step
-    apt:
-      update_cache: yes
+  # - name: Run the equivalent of "apt-get update" as a separate step
+  #   apt:
+  #     update_cache: yes
 
-###
+######
 #   - name: Install packages to allow apt to debug and trouble shoot
 #     apt:
 #       state: present
