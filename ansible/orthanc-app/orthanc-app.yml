@@ -117,7 +117,7 @@
       login_user: "{{orthanc_pg_username}}"
       login_password: "{{orthanc_pg_passwd}}"
       ssl_mode: disable
-
+#
   - name: Docker compose bundle of orthanc application
     when: pgResult.is_available == true
     docker_compose:
