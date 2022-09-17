@@ -22,7 +22,7 @@ env:
 #--------------MONGODB CONFIG--------------#
   MONGODB__IMG: mongo:6.0.1
   MONGODB__PORT: 27017
-  MONGODB__DIR: /mnt/orthanc/mongodb::/data/db
+  MONGODB__DIR: /mnt/orthanc/mongodb:/data/db
 
 #--------------ORTHANC CONFIG--------------#
   ORTHANC__DIR: /mnt/orthanc/orthanc/orthanc-db
@@ -98,7 +98,7 @@ jobs:
             -e VIEWER__IMG="${{env.VIEWER__IMG}}"
             -e VIEWER__ATE_PORT="${{env.VIEWER__ATE_PORT}}"
             -e VIEWER__MONGO_URL="${{env.VIEWER__MONGO_URL}}"
-            -e VIEWER__CONF="${{ format('{0}/{1}', github.workspace, env.VIEWER__CONF) }}"
+            -e VIEWER__CONF="${{ format('{0}{1}', github.workspace, env.VIEWER__CONF) }}"
 
             -e MONGODB__IMG="${{env.MONGODB__IMG}}"
             -e MONGODB__PORT="${{env.MONGODB__PORT}}"
