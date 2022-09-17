@@ -7,6 +7,26 @@ on:
     - 'ansible/orthanc-app/**'
 
 env:
+#--------------NGINX CONFIG--------------#
+  NGINX__IMG: nginx:1.23.1-alpine
+  NGINX__ATE_PORT: 4242
+  NGINX__GLOBAL_CONF_DIR: /nginx/nginx.conf
+  NGINX__HOST_CONF_DIR: /nginx/nginx.conf
+
+#--------------VIEWER CONFIG--------------#
+  VIEWER__IMG: ohif/viewer:v4.12.38.19558
+  VIEWER__ATE_PORT: 3000
+  VIEWER__MONGO_URL: mongodb://mongo:27017/ohif
+  VIEWER__CONF: /stream/viewer.json:/app/app.json:ro
+
+#--------------MONGODB CONFIG--------------#
+  MONGODB__IMG: mongo:6.0.1
+  MONGODB__PORT: 27017
+  MONGODB__DIR: /mnt/orthanc/mongodb::/data/db
+
+#--------------ORTHANC CONFIG--------------#
+  # ORTHANC__DIR:
+  ORTHANC__IMG: "osimis/orthanc:22.9.0"
   ORTHANC__NAME: "My Orthanc"
   ORTHANC__STORAGE_MAX_SIZE: 0
   ORTHANC__STORAGE_MAX_PATIENTS: 0
@@ -26,14 +46,13 @@ env:
   HTTP_CL_VERIFY_PEERS: 'true'
   STABLE_AGE: 60
   DICOM_STRICT_AET_COMPARISON_ENABLED: 'false'
-  ORTHANC__REGISTERED_USERS: |
-    {\"orthanc\":\"orthanc\"}
   ORTHANC__POSTGRESQL__ENABLE_INDEX: 'true'
   ORTHANC__POSTGRESQL__ENABLE_STORAGE: 'true'
   ORTHANC__POSTGRESQL__HOST: "172.16.16.17"
   ORTHANC__POSTGRESQL__PORT: 5432
   ORTHANC__POSTGRESQL__DATABASE: orthanc
   ORTHANC__POSTGRESQL__ENABLE_SSL: 'false'
+#--------------ORTHANC CONFIG END--------------#
 
 jobs:
   # checking:
@@ -75,6 +94,17 @@ jobs:
           # Optional, directory where playbooks live
           directory: ./ansible/orthanc-app
           options: |
+
+            -e VIEWER__IMG="${{env.VIEWER__IMG}}"
+            -e VIEWER__ATE_PORT="${{env.VIEWER__ATE_PORT}}"
+            -e VIEWER__MONGO_URL="${{env.VIEWER__MONGO_URL}}"
+            -e VIEWER__CONF="${{ format('{0}/{1}', github.workspace, env.VIEWER__CONF) }}"
+
+            -e MONGODB__IMG="${{env.MONGODB__IMG}}"
+            -e MONGODB__PORT="${{env.MONGODB__PORT}}"
+            -e MONGODB__DIR="${{env.MONGODB__DIR}}"
+
+
             -e ORTHANC__NAME="${{env.ORTHANC__NAME}}"
             -e ORTHANC__STORAGE_MAX_SIZE="${{env.ORTHANC__STORAGE_MAX_SIZE}}"
             -e ORTHANC__STORAGE_MAX_PATIENTS="${{env.ORTHANC__STORAGE_MAX_PATIENTS}}"

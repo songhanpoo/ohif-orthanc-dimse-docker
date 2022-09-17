@@ -6,36 +6,36 @@
     "merge_logs"  : true,
     "cwd"         : "/app/bundle/",
     "env": {
-    	"METEOR_SETTINGS": {
-		  "servers": {
-		    "dicomWeb": [
-					{
-		        "name": "Orthanc",
-		        "wadoUriRoot": "http://localhost:8042/wado",
-		        "qidoRoot": "http://localhost:8042/dicom-web",
-		        "wadoRoot": "http://localhost:8042/dicom-web",
-		        "qidoSupportsIncludeField": false,
-		        "imageRendering": "wadouri",
-		        "thumbnailRendering": "wadouri",
-		        "requestOptions": {
-		          "auth": "orthanc:orthanc",
-		          "logRequests": true,
-		          "logResponses": false,
-		          "logTiming": true
-		        }
-		      }
-		    ]
-		  },
-		  "defaultServiceType": "dicomWeb",
-		  "public": {
-				"ui": {
-					"studyListDateFilterNumDays": 7000
+				"METEOR_SETTINGS": {
+				"servers": {
+					"dicomWeb": [
+						{
+							"name": "Orthanc",
+							"wadoUriRoot": "http://localhost:8042/wado",
+							"qidoRoot": "http://localhost:8042/dicom-web",
+							"wadoRoot": "http://localhost:8042/dicom-web",
+							"qidoSupportsIncludeField": false,
+							"imageRendering": "wadouri",
+							"thumbnailRendering": "wadouri",
+							"requestOptions": {
+								"auth": "orthanc:orthanc",
+								"logRequests": true,
+								"logResponses": false,
+								"logTiming": true
+							}
+						}
+					]
+				},
+				"defaultServiceType": "dicomWeb",
+				"public": {
+					"ui": {
+						"studyListDateFilterNumDays": 7000
+					}
+				},
+				"proxy": {
+					"enabled": true
 				}
-			},
-		  "proxy": {
-		    "enabled": true
-		  }
-		}
+			}
     }
   }]
 }
