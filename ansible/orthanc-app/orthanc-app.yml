@@ -100,6 +100,7 @@
     register: output
     docker_compose:
       project_name: orthanc
+      restarted: true
       definition:
         version: '3.6'
         services:

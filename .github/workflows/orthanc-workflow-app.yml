@@ -5,6 +5,7 @@ on:
       - master
     paths:
     - 'ansible/orthanc-app/**'
+    - '.github/workflows/orthanc-workflow-app.yml'
 
 env:
 #--------------NGINX CONFIG--------------#
