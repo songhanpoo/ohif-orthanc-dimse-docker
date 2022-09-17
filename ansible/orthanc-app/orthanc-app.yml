@@ -131,7 +131,7 @@
             ORTHANC__DICOM_MODALITIES: |
               {
                 {% for item in ORTHANC__DICOM_MODALITIES %}
-                  "{{item}}":{{ORTHANC__DICOM_MODALITIES[item]}},
+                  "{{item}}":{{ ORTHANC__DICOM_MODALITIES[item] }},
                 {% endfor -%}
               }
             ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED: "{{ORTHANC__DICOM_ALWAYS_ALLOW_ECHO_ENABLED}}"
