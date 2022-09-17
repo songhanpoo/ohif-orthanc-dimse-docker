@@ -25,7 +25,7 @@ env:
   MONGODB__DIR: /mnt/orthanc/mongodb::/data/db
 
 #--------------ORTHANC CONFIG--------------#
-  # ORTHANC__DIR:
+  ORTHANC__DIR: /mnt/orthanc/orthanc/orthanc-db
   ORTHANC__IMG: "osimis/orthanc:22.9.0"
   ORTHANC__NAME: "My Orthanc"
   ORTHANC__STORAGE_MAX_SIZE: 0
@@ -105,6 +105,8 @@ jobs:
             -e MONGODB__DIR="${{env.MONGODB__DIR}}"
 
 
+            -e ORTHANC__DIR="${{env.ORTHANC__DIR}}"
+            -e ORTHANC__IMG="${{env.ORTHANC__IMG}}"
             -e ORTHANC__NAME="${{env.ORTHANC__NAME}}"
             -e ORTHANC__STORAGE_MAX_SIZE="${{env.ORTHANC__STORAGE_MAX_SIZE}}"
             -e ORTHANC__STORAGE_MAX_PATIENTS="${{env.ORTHANC__STORAGE_MAX_PATIENTS}}"
