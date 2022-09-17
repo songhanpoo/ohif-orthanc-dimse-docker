@@ -98,6 +98,8 @@
 
   - debug:
       msg: 
+        - "{{ORTHANC__REGISTERED_USERS.orthanc }}"
+        - "{{OHIF.orthanc }}"
         - "{{ORTHANC__REGISTERED_USERS | string }}"
         - "{{ORTHANC__DICOM_MODALITIES | string }}"
 
