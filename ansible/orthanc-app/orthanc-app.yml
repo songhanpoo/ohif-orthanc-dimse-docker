@@ -91,11 +91,11 @@
     postgresql_ping:
       db: "{{ORTHANC__POSTGRESQL__DATABASE}}"
       login_host: "{{ORTHANC__POSTGRESQL__HOST}}"
-      login_port: 5432
+      login_port: "{{ORTHANC__POSTGRESQL__PORT}}"
       login_user: "{{ORTHANC__POSTGRESQL__USERNAME}}"
       login_password: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
       ssl_mode: disable
-#######
+##############
   - name: Docker compose bundle of orthanc application
     when: pgResult.is_available == true
     register: output
