@@ -104,14 +104,14 @@
       definition:
         version: '3.6'
         services:
-          nginx:
-            image: "{{NGINX__IMG}}"
-            container_name: nginx
-            ports:   
-              - "65432:65432"   
-              - "8080:80"
-            volumes:   
-              - ./stream/nginx.conf:/etc/nginx/nginx.conf:ro
+          # nginx:
+          #   image: "{{NGINX__IMG}}"
+          #   container_name: nginx
+          #   ports:   
+          #     - "65432:65432"   
+          #     - "8080:80"
+          #   volumes:   
+          #     - ./stream/nginx.conf:/etc/nginx/nginx.conf:ro
 
           viewer:
             image: "{{VIEWER__IMG}}"
