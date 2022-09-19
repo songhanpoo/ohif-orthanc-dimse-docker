@@ -187,6 +187,7 @@
               ORTHANC__POSTGRESQL__PASSWORD: "{{ORTHANC__POSTGRESQL__PASSWORD}}"
               ORTHANC__POSTGRESQL__ENABLE_SSL: "{{ORTHANC__POSTGRESQL__ENABLE_SSL}}"
               STONE_WEB_VIEWER_PLUGIN_ENABLED: 'true'
+              DICOM_WEB_PLUGIN_ENABLED: 'true'
 
   - debug:
       msg: 
