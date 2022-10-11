@@ -46,7 +46,7 @@
   - name: Template a file to /etc/postgresql/pg_hba.conf
     template:
       src: ./templates/pg_hba.conf.j2
-      dest: /etc/postgresql/12/main/pg_hba.conf
+      dest: /etc/postgresql/pg_hba.conf
       owner: postgres
       group: postgres
       mode: '0640'
@@ -54,7 +54,7 @@
   - name: Template a file to /etc/postgresql/postgresql.conf
     template:
       src: ./templates/postgresql.conf.j2
-      dest: /etc/postgresql/12/main/postgresql.conf
+      dest: /etc/postgresql/postgresql.conf
       owner: postgres
       group: postgres
       mode: '0640'
