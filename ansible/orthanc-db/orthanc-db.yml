@@ -33,16 +33,6 @@
       - postgresql-{{version_postgresql}}
       - postgresql-contrib-{{version_postgresql}}
 
-  - name: Enable service postgresql, and not touch the state
-    service:
-      name: postgresql@{{version_postgresql}}-main
-      enabled: yes
-
-  - name: Start service postgresql, if not started
-    service:
-      name: postgresql@{{version_postgresql}}-main
-      state: started
-
   - name: "Template a file to /etc/postgresql/{{version_postgresql}}/main/pg_hba.conf"
     template:
       src: ./templates/pg_hba.conf.j2
@@ -57,7 +47,7 @@
       dest: "/etc/postgresql/{{version_postgresql}}/main/postgresql.conf"
       owner: postgres
       group: postgres
-      mode: '0640'
+      mode: '0644'
 
   - name: Restarted service postgresql
     service:
