@@ -9,6 +9,7 @@ on:
 env:
   CIDR_ALLOW_POSTGRESQL: "172.16.16.0/24"
   ORTHANC_PGSQL_DB_NAME: orthanc
+  VERSION_POSTGRESQL: 12
 
 jobs:
   checking:
@@ -66,3 +67,4 @@ jobs:
             -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
             -e orthanc_pg_username=${{secrets.ORTHANC_PGSQL_USERNAME}}
             -e orthanc_pg_passwd=${{secrets.ORTHANC_PGSQL_PASSWD}}
+            -e version_postgresql=${{env.VERSION_POSTGRESQL}}

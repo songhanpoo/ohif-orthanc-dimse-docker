@@ -30,8 +30,8 @@
     apt:
       state: present
       pkg:
-      - postgresql
-      - postgresql-contrib
+      - postgresql-{{version_postgresql}}
+      - postgresql-contrib-{{version_postgresql}}
 
   - name: Enable service postgresql, and not touch the state
     service:
@@ -43,18 +43,18 @@
       name: postgresql
       state: started
 
-  - name: Template a file to /etc/postgresql/pg_hba.conf
+  - name: "Template a file to /etc/postgresql/{{version_postgresql}}/main/pg_hba.conf"
     template:
       src: ./templates/pg_hba.conf.j2
-      dest: /etc/postgresql/pg_hba.conf
+      dest: "/etc/postgresql/{{version_postgresql}}/main/pg_hba.conf"
       owner: postgres
       group: postgres
       mode: '0640'
 
-  - name: Template a file to /etc/postgresql/postgresql.conf
+  - name: "Template a file to /etc/postgresql/{{version_postgresql}}/main/postgresql.conf"
     template:
       src: ./templates/postgresql.conf.j2
-      dest: /etc/postgresql/postgresql.conf
+      dest: "/etc/postgresql/{{version_postgresql}}/main/postgresql.conf"
       owner: postgres
       group: postgres
       mode: '0640'
