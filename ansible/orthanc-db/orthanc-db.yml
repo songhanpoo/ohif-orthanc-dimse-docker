@@ -30,17 +30,17 @@
     apt:
       state: present
       pkg:
-      - postgresql-{{version_postgresql}}
+      - postgresql@{{version_postgresql}}-main
       - postgresql-contrib-{{version_postgresql}}
 
   - name: Enable service postgresql, and not touch the state
     service:
-      name: postgresql
+      name: postgresql@{{version_postgresql}}-main
       enabled: yes
 
   - name: Start service postgresql, if not started
     service:
-      name: postgresql
+      name: postgresql@{{version_postgresql}}-main
       state: started
 
   - name: "Template a file to /etc/postgresql/{{version_postgresql}}/main/pg_hba.conf"
@@ -59,10 +59,10 @@
       group: postgres
       mode: '0640'
 
-  - name: Reload service postgresql
+  - name: Restarted service postgresql
     service:
-      name: postgresql
-      state: reloaded
+      name: postgresql@{{version_postgresql}}-main
+      state: restarted
 
   - name: "Create a new database with name {{orthanc_pg_db_name}}"
     become: true
