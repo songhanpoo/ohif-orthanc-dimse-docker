@@ -16,6 +16,8 @@ jobs:
     steps:
     # Print metadata informations
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
@@ -42,6 +44,8 @@ jobs:
     if: ${{ success() }}
     needs: checking
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
