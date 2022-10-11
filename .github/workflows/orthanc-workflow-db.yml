@@ -1,4 +1,4 @@
-name: Automate deploy to orthanc database
+name: Orthanc-Db
 on:
   push:
     branches:

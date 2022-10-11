@@ -1,4 +1,4 @@
-name: Automate deploy to orthanc app
+name: Orthanc-App
 on:
   push:
     branches:
