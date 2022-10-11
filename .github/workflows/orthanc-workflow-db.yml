@@ -41,7 +41,7 @@ jobs:
           # Optional, literal inventory file contents
           inventory: |
             [all]
-            172.16.16.17 ansible_user=desk
+            172.16.16.17 ansible_user=dcom
           options: |
             -e cidr_allow_postgresql=${{env.CIDR_ALLOW_POSTGRESQL}}
             -e orthanc_pg_db_name=${{env.ORTHANC_PGSQL_DB_NAME}}
