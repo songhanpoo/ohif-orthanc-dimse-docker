@@ -43,7 +43,7 @@
       name: postgresql
       state: started
 
-  - name: Template a file to /etc/postgresql/10/main/pg_hba.conf
+  - name: Template a file to /etc/postgresql/pg_hba.conf
     template:
       src: ./templates/pg_hba.conf.j2
       dest: /etc/postgresql/12/main/pg_hba.conf
@@ -51,7 +51,7 @@
       group: postgres
       mode: '0640'
 
-  - name: Template a file to /etc/postgresql/10/main/postgresql.conf
+  - name: Template a file to /etc/postgresql/postgresql.conf
     template:
       src: ./templates/postgresql.conf.j2
       dest: /etc/postgresql/12/main/postgresql.conf
