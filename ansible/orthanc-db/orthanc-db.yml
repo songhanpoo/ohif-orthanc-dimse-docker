@@ -30,7 +30,7 @@
     apt:
       state: present
       pkg:
-      - postgresql@{{version_postgresql}}-main
+      - postgresql-{{version_postgresql}}
       - postgresql-contrib-{{version_postgresql}}
 
   - name: Enable service postgresql, and not touch the state
