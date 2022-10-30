@@ -176,7 +176,8 @@
               DICOM_STRICT_AET_COMPARISON_ENABLED: "{{DICOM_STRICT_AET_COMPARISON_ENABLED}}"
               ORTHANC__REGISTERED_USERS: |
                 {
-                  "orthanc":"orthanc"
+                  "orthanc":"orthanc",
+                  "hello":"hello"
                 }
               ORTHANC__POSTGRESQL__ENABLE_INDEX: "{{ORTHANC__POSTGRESQL__ENABLE_INDEX}}"
               ORTHANC__POSTGRESQL__ENABLE_STORAGE: "{{ORTHANC__POSTGRESQL__ENABLE_STORAGE}}"
