@@ -1,5 +1,4 @@
 - hosts: all
-  ##
   # vars:
   #   - cidr_allow_postgresql: ''
   #   - pg_db_name: ''
