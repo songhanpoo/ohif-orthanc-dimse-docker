@@ -19,7 +19,7 @@
       - build-essential
       - libpq-dev
       - python-dev
-
+ 
   - name: Install psycopg2 and docker, using the 'pip3' executable
     pip:
       name: 
